@@ -3,31 +3,76 @@ import Image  from "next/image"
 import activeIcon from "@/public/active-button.svg"
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRef, useState } from "react";
+import User from "@/app/models/User"
+import {connect} from "@/app/utils/db"
+import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
+
+export const POST = async (request: any) => {
+    const {nickname, email, password} = await request.json();
+
+    await connect();
+
+    const existingUser = await User.findOne({email});
+
+    if(existingUser){
+        return new NextResponse(
+            "Email is already used",
+            {status: 400},
+        );
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 5);
+    const newUser = new User({
+        nickname: nickname,
+        email: email,
+        password: hashedPassword,
+    })
+
+    try{
+        await newUser.save();
+        return new NextResponse(
+            "User has been created!",
+            {status: 200},
+        );
+    }catch(error: any){
+        return new NextResponse(error, {
+            status: 500,
+        });
+    }
+}
 
 export const Register = () => {
     const [user, setUser] = useState({});
+    const [captchaCode, setCaptchaCode] = useState();
 
     const recaptchaRef = useRef()
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        // Execute the reCAPTCHA when the form is submitted
+        console.log(event)
+        if(!captchaCode){
+            alert("You have to confirm ReCAPTCHA!");
+            return;
+        }
+        if(event.target[2].value != event.target[3].value){
+            alert("Passwords are not the same!");
+            return;
+        }
+        const nickname = event.target[0].value;
+        const email = event.target[1].value;
+        const password = event.target[2].value;
+        alert(nickname + email + password)
+        recaptchaRef.current.reset();
+        setCaptchaCode(undefined);
     };
     const onReCAPTCHAChange = (captchaCode: any) => {
-    // If the reCAPTCHA code is null or undefined indicating that
-    // the reCAPTCHA was expired then return early
     if(!captchaCode) {
         return;
     }
-    // Else reCAPTCHA was executed successfully so proceed with the 
-    // alert
-    alert(`Hey`);
     const recaptchaValue = recaptchaRef.current.getValue()
-
+    setCaptchaCode(recaptchaValue)
     alert(recaptchaValue)
-    // Reset the reCAPTCHA so that it can be executed again if user 
-    // submits another email.
-    recaptchaRef.current.reset();
     }
     return(
         <div className={styles.authentication_wrapper}>
