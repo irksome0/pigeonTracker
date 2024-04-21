@@ -1,46 +1,43 @@
 import "./globals.css";
-import Layout, {Content, Footer, Header} from "antd/es/layout/layout"
-import Link from "antd/es/typography/Link";
+import Layout, {Content} from "antd/es/layout/layout"
 import { Noto_Sans } from "next/font/google";
 import { Metadata } from "next";
-import { NavigationButton } from "./components/NavigationButton";
+import { getServerSession } from "next-auth";
+import SessionProvider from "@/utils/sessionProvider"
+import Link from "next/link";
+import Nav from "@/components/Nav";
+import { useEffect } from "react";
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
   display: 'swap',
 })
 
-const items =[
-  {key: "home", label: <Link href={"/"}>Home</Link>},
-  {key: "login", label: <Link href={"/login"}>Login</Link>},
-  {key: "register", label: <Link href={"/register"}>Register</Link>},
-]
-
 export const metadata: Metadata = {
   title: "Pigeon Tracker",
   description:  "Pigeon Tracker",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
   return (
     <html lang="en" className={notoSans.className}>
       <body>
+      <SessionProvider session={session}>
         <Layout style={{ minHeight: "100vh"}} className="bg">
           <header>
-            <a href={"/"} className="logo-text">Pigeon Tracker</a>
-            <nav>
-              <NavigationButton  text="Log in"/>
-              <NavigationButton type="primary" text="Sign up"/>
-            </nav>
+            <Link href={"/"} className="logo-text">Pigeon Tracker</Link>
+            <Nav/>
           </header>
           <Content style={{padding: "0 48px", display:"flex", justifyContent: "center", alignItems:"center"}}>
             {children}
           </Content>
         </Layout>
+        </SessionProvider>
       </body>
     </html>
   );
