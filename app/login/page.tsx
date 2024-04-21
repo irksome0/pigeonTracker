@@ -40,11 +40,12 @@ export default function Login(){
             password
         })
         if(res?.error) {
-            setError("Invalid email or password")
+            setError("Invalid email or password");
             if(res?.url){
                 router.replace("/menu");
             }
         }
+
         recaptchaRef.current.reset();
         setCaptchaCode(undefined);
     };

@@ -1,6 +1,6 @@
 "use client";
 
-import { NavigationButton } from "@/components/NavigationButton";
+import React from "react";
 import { signOut, useSession } from "next-auth/react";
 import styles from "./styles/NavigationButton.module.css"
 import activeIcon from "@/public/active-button.svg"
@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Nav(){
-    const {data: session}: any = useSession();
+    const {data: session}: any = useSession()
 
     return(
         <div>
