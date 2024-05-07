@@ -1,0 +1,24 @@
+.menu_wrapper {
+    width: 70vw;
+    margin: 5vh 0 10vh 0;
+    background: #F9FAFB;
+    border-radius: 1.5rem;
+    box-shadow: rgba(0,0,0,0.1) 0px 8px 12px;
+
+    padding: 20px 10px 20px 10px;
+    aspect-ratio: 2/1;
+}
+
+.list_wrapper{
+    width: 60%;
+    text-align: center;
+    color: #2D3142;
+    font-family: var(--font-noto-sans);
+    
+}
+.list_container{
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    box-shadow: rgba(0,0,0,0.1) 0px 8px 12px;
+}

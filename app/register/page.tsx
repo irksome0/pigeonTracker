@@ -51,13 +51,13 @@ export default function RegisterPage(){
             return;
         }
         try{
-            const res = await fetch("/api/register",{
+            const res = await fetch("http://127.0.0.1:3001/api/register",{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    nickname,
+                    username: nickname,
                     email,
                     password,
                 })

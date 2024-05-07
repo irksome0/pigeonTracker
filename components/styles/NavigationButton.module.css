@@ -5,11 +5,11 @@
     font-weight:600;
     border-radius: 1rem;
     font-size: 16px;
-    padding: 20px 30px;
-    height: 50px;
+    padding: 15px 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    border:none;
 }
 
 .button_primary:hover {
@@ -19,12 +19,13 @@
 
 .button_base {
     color: #626E95;
+    background-color: transparent;
     transition-duration: .2s;
     font-weight: 600;
     border-radius: 1rem;
+    border: none;
     font-size: 16px;
     padding: 15px 30px;
-    height: 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,18 +39,33 @@ body:has(.button_primary:hover) .button_part_2 {
     filter: brightness(0) saturate(100%) invert(93%) sepia(2%) saturate(1034%) hue-rotate(198deg) brightness(105%) contrast(91%);
 }
 
-body:has(.button_base:hover) .button-part-1 {
+body:has(.button_base:hover) .button_part_1 {
     filter: brightness(0) saturate(100%) invert(14%) sepia(9%) saturate(1858%) hue-rotate(191deg) brightness(103%) contrast(88%);
 }
 
 .button_part_2 {
     filter: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(201%) hue-rotate(191deg) brightness(93%) contrast(92%);
     transition-duration: .2s;
-    margin: 0 10px 0 0;
+    margin: -2.25px 10px 0 0;
 }
 
 .button_part_1 {
     filter: brightness(0) saturate(100%) invert(42%) sepia(14%) saturate(1102%) hue-rotate(188deg) brightness(97%) contrast(84%);
     transition-duration: .2s;
-    margin: 0 10px 0 0;
+    margin: -2.25px 10px 0 0;
+}
+
+.profile_icon{
+    height: 30px;
+    width: 30px;
+}
+.profile_button{
+    background-color: transparent;
+    border: none;
+}
+.profile_dropdown higher{
+    background-color: "#F9FAFB"; 
+    color:"#626E95";
+    font-family: var(--font-noto-sans);
+    font-weight: 700;
 }

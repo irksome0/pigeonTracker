@@ -2,11 +2,9 @@ import "./globals.css";
 import Layout, {Content} from "antd/es/layout/layout"
 import { Noto_Sans } from "next/font/google";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import SessionProvider from "@/utils/sessionProvider"
 import Link from "next/link";
 import Nav from "@/components/Nav";
-import { useEffect } from "react";
+import SessionProvider from "@/utils/sessionProvider"
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
@@ -23,11 +21,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
   return (
     <html lang="en" className={notoSans.className}>
       <body>
-      <SessionProvider session={session}>
+        <SessionProvider>
         <Layout style={{ minHeight: "100vh"}} className="bg">
           <header>
             <Link href={"/"} className="logo-text">Pigeon Tracker</Link>

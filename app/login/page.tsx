@@ -5,22 +5,15 @@ import styles from "@/components/styles/Authentication.module.css";
 import activeIcon from "@/public/active-button.svg";
 import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
+import { signIn} from "next-auth/react";
 
 export default function Login(){
     const recaptchaRef = useRef();
     const router = useRouter();
     const [captchaCode, setCaptchaCode] = useState();
     const [error, setError] = useState("");
-    const session = useSession();
-
-    useEffect(()=>{
-        if(session?.status === "authenticated"){
-            router.replace("/menu");
-        }
-    }, [session, router])
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -39,17 +32,18 @@ export default function Login(){
             email,
             password
         })
-        if(res?.error) {
-            setError("Invalid email or password");
+                    
+        if(res?.ok) {
             if(res?.url){
-                router.replace("/menu");
+                router.replace("/dashboard");
             }
+        }else{
+            setError("Invalid email or password");
         }
-
-        recaptchaRef.current.reset();
+        recaptchaRef.current?.reset();
         setCaptchaCode(undefined);
     };
-    const onReCAPTCHAChange = (captchaCode: any) => {
+        const onReCAPTCHAChange = (captchaCode: any) => {
         if(!captchaCode) {
             return;
         }
@@ -73,7 +67,7 @@ export default function Login(){
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                 onChange={onReCAPTCHAChange}
             />
-                <button id="login-submit" type="submit" className={styles.button_auth}><Image src={activeIcon} className={styles.button_part_4} alt="icon"/>Log in</button>
+                <button type="submit" className={styles.button_auth}><Image src={activeIcon} className={styles.button_part_4} alt="icon"/>Log in</button>
                 <p style={{color:"red"}}>{error && error}</p>
                  <p>
                      Don&apos;t have an account?
