@@ -1,6 +1,6 @@
 import type { AuthOptions } from "next-auth";
 import  CredentialsProvider from "next-auth/providers/credentials";
-import { cookies, headers } from "next/headers";
+import { cookies} from "next/headers";
 
 export const authConfig: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
@@ -12,6 +12,7 @@ export const authConfig: AuthOptions = {
                 email: {label:"Email", type: "text"},
                 password: {label: "Password", type:"password"},
             },
+            
             async authorize(credentials:any){
                 try{
                     
@@ -26,29 +27,29 @@ export const authConfig: AuthOptions = {
                     
                     })
                     const data = await response.json()
-                    console.log(data)
                     const cookiesStore = cookies()
                     cookiesStore.set("jwt", data.access_token, {
                         httpOnly:true,
-                        sameSite:"none",
-                        secure:true,
+                        sameSite:"lax",
                         expires: data.expires
                     })
                     const token = cookiesStore.get("jwt")
-                    console.log("COOKIE:", )
+                    console.log(token)
+                    // setCookie("jwt_token", data.access_token, { req, res, maxAge: 60 * 6 * 24 })
+                    // console.log("COOKIE:", )
                     if(response.ok){
                         const userData = await fetch("http://127.0.0.1:3001/api/user",{
                             credentials:"include",
                             headers:{
-                                Cookie: token?.name + "=" + token?.value,
+                                Cookie: "jwt" + "=" + token?.value,
                             }
                         })
                         const data = await userData.json()
-                        console.log("DATA:", data)
                     }
                     const user = {
                         name: data.user.username,
                         email: data.user.email,
+                        admin: data.user.isAdmin
                     }
                     // .then(result => console.log(result))
                     return user as any;

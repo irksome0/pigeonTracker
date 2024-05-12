@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/utils/db.js", "app/models/User.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/utils/db.js", "app/models/User.js", "components/UsersList.jsx", "utils/useSessionStorage.js", "configs/auth.js"],
   "exclude": ["node_modules"]
 }
