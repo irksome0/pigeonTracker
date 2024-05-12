@@ -1,3 +1,4 @@
+
 import "./globals.css";
 import Layout, {Content} from "antd/es/layout/layout"
 import { Noto_Sans } from "next/font/google";
@@ -5,6 +6,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import SessionProvider from "@/utils/sessionProvider"
+import { ReduxProvider } from "@/lib/provider";
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
@@ -25,15 +27,17 @@ export default async function RootLayout({
     <html lang="en" className={notoSans.className}>
       <body>
         <SessionProvider>
-        <Layout style={{ minHeight: "100vh"}} className="bg">
-          <header>
-            <Link href={"/"} className="logo-text">Pigeon Tracker</Link>
-            <Nav/>
-          </header>
-          <Content style={{padding: "0 48px", display:"flex", justifyContent: "center", alignItems:"center"}}>
-            {children}
-          </Content>
-        </Layout>
+            <Layout style={{ minHeight: "100vh"}} className="bg">
+              <header>
+                <Link href={"/"} className="logo-text">Pigeon Tracker</Link>
+                <Nav/>
+              </header>
+              <Content style={{padding: "0 48px", display:"flex", justifyContent: "center", alignItems:"center"}}>
+                <ReduxProvider>
+                {children}
+                </ReduxProvider>
+              </Content>
+            </Layout>
         </SessionProvider>
       </body>
     </html>

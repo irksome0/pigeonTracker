@@ -51,6 +51,7 @@ export const authConfig: AuthOptions = {
                         email: data.user.email,
                         admin: data.user.isAdmin
                     }
+                    dispatch(userCreate(user))
                     // .then(result => console.log(result))
                     return user as any;
                 }catch(error: any){

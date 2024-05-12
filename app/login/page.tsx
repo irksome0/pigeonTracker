@@ -8,8 +8,11 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn} from "next-auth/react";
+import { type AppDispatch } from "@/lib/store";
+import { useDispatch } from "react-redux";
 
 export default function Login(){
+    const dispatch: AppDispatch = useDispatch()
     const recaptchaRef = useRef();
     const router = useRouter();
     const [captchaCode, setCaptchaCode] = useState();
