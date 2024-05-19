@@ -26,6 +26,7 @@ export default function RegisterPage(){
     }
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+        // Additional check whether captcha is confirmed
         if(!captchaCode){
             setError("You have to confirm ReCAPTCHA!");
             return;
@@ -50,6 +51,8 @@ export default function RegisterPage(){
             setError("Email is not valid")
             return;
         }
+        // Should rewrite the next code
+        // ! MAKE AN UTIL FUNCTION FOR REGISTRATION !
         try{
             const res = await fetch("http://127.0.0.1:3001/api/register",{
                 method: "POST",

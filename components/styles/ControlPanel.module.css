@@ -1,0 +1,95 @@
+.controlpanel_wrapper{
+    width: 70vw;
+    margin: 5vh 0 10vh 0;
+    background: #F9FAFB;
+    border-radius: 1.5rem;
+    box-shadow: rgba(0,0,0,0.1) 0px 8px 12px;
+
+    padding: 20px 10px 20px 10px;
+    aspect-ratio: 2/1;
+    padding: 20px 12px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    grid-template-rows: repeat(auto,1fr);
+    grid-gap: 10px;
+    overflow-y: scroll;
+}
+.controlpanel_wrapper::-webkit-scrollbar{
+    position: absolute;
+    right: 100px;
+    background-color: #F9FAFB;
+    border-radius: 1px 1.5rem 1.5rem 1px;
+}
+.controlpanel_wrapper::-webkit-scrollbar-thumb{
+    background-color: #3F4665;
+    border-radius: 1.75rem;
+}
+
+.user_container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    border: 2px solid #626E95;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.1);
+    padding: 12px;
+    width: 250px;
+    height: 200px;
+    transition: .1s ease-in-out;
+}
+.user_container:hover{
+    transform: translate(0px,-2px);
+}
+.user_container:hover h4{
+    color: #3F4665;
+}
+.user_container p{
+    font-size:18px;
+    font-weight: 600;
+    font-family: var(--font-noto-sans);
+    color: #2D3142;
+    margin: 0px;
+    cursor: default;
+}
+.user_container h4{
+    font-size:18px;
+    font-family: var(--font-noto-sans);
+    color: #626E95;
+    margin: 0px;
+    cursor: default;
+    letter-spacing:2px;
+}
+.user_container_controls{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+}
+.user_container_controls button{
+    background-color: #3F4665;
+    color: #D4D7E3;
+    transition-duration: .2s;
+    font-weight:600;
+    border-radius: 1rem;
+    font-size: 16px;
+    padding: 15px 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border:none;
+    line-height: 15px;
+    cursor: pointer;
+}
+.user_container_controls button:hover {
+    background-color: #626E95;
+    color: #EBECF3;
+}
+.trash_icon{
+    fill: #3F4665;
+    transition: .2s;
+    cursor: pointer;
+}
+.trash_icon:hover{
+    transform: translate(0px, -3px);
+    fill: rgb(182, 42, 42);
+}

@@ -1,6 +1,9 @@
+import { userCreate } from "@/lib/features/user/userSlice";
+import { AppDispatch } from "@/lib/store";
 import type { AuthOptions } from "next-auth";
 import  CredentialsProvider from "next-auth/providers/credentials";
 import { cookies} from "next/headers";
+import { useDispatch } from "react-redux";
 
 export const authConfig: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
@@ -34,9 +37,6 @@ export const authConfig: AuthOptions = {
                         expires: data.expires
                     })
                     const token = cookiesStore.get("jwt")
-                    console.log(token)
-                    // setCookie("jwt_token", data.access_token, { req, res, maxAge: 60 * 6 * 24 })
-                    // console.log("COOKIE:", )
                     if(response.ok){
                         const userData = await fetch("http://127.0.0.1:3001/api/user",{
                             credentials:"include",
@@ -51,29 +51,11 @@ export const authConfig: AuthOptions = {
                         email: data.user.email,
                         admin: data.user.isAdmin
                     }
-                    // .then(result => console.log(result))
                     return user as any;
                 }catch(error: any){
                     throw new Error(error)
                 }
             }
-            // async authorize(credentials:any) {
-            //     await connect();
-            //     try{
-            //         const user = await User.findOne({email: credentials.email})
-            //         if(user){
-            //             const isPasswordCorrect = await bcrypt.compare(
-            //                 credentials.password,
-            //                 user.password
-            //             )
-            //             if(isPasswordCorrect){
-            //                 return user;
-            //             }
-            //         }
-            //     }catch(error:any){
-            //         throw new Error(error)
-            //     }
-            // },
         }),
     ]
 }

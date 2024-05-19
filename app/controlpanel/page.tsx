@@ -4,7 +4,8 @@ import { UsersList } from "@/components/UsersList";
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
-import styles from "@/components/styles/Dashboard.module.css"
+import styles from "@/components/styles/ControlPanel.module.css"
+import UserContainer from "@/components/UserContainer";
 
 export default function ControlPanel(){
     const router = useRouter()
@@ -17,24 +18,21 @@ export default function ControlPanel(){
     const [users, setUsers] = useState([{email:"", username:""}])
 
     useEffect(()=>{
-      UsersList(session?.user?.email).then(result =>{
-        setUsers(result)
-      }).catch(error => {
-        console.error('Error fetching data:', error);
-      });;
-    }, [])
-  
+      if (session?.user?.email){
+        UsersList(session?.user?.email).then(result =>{
+          setUsers(result)
+        }).catch(error => {
+          console.error('Error fetching data:', error);
+        });
+      }
+    }, [session])
     return (
       <div>
-        <div className={styles.menu_wrapper}>
-
+        <div className={styles.controlpanel_wrapper}>
             {users.map(element => 
-              <div key={element.username} style={{display:"flex", flexDirection:"row", gap:"20px"}}>
-                <p style={{margin:"0"}}><b>Email: </b>{element.email}</p>
-                <p style={{margin:"0"}}><b>Name: </b>{element.username}</p>
-              </div>)}   
+              <UserContainer key={element.username} username={element.username} email={element.email}/>
+            )}   
         </div>
-        {/* <button onClick={() => (console.log(data))}>show</button> */}
       </div>
     )
 }

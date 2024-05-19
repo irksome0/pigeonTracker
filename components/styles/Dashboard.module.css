@@ -7,6 +7,8 @@
 
     padding: 20px 10px 20px 10px;
     aspect-ratio: 2/1;
+    display: flex;
+    flex-direction: row;
 }
 
 .list_wrapper{
@@ -14,6 +16,7 @@
     text-align: center;
     color: #2D3142;
     font-family: var(--font-noto-sans);
+    border: 2px dashed blue;
     
 }
 .list_container{
@@ -21,4 +24,103 @@
     border: none;
     border-radius: 12px;
     box-shadow: rgba(0,0,0,0.1) 0px 8px 12px;
+    border: 2px dashed green;
+    height: 500px;
+    overflow-y: scroll;
+}
+.item_wrapper{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background-color: #EBECF3;
+    border: 2px dashed red;
+    border-radius: 12px;
+    width: 50%;
+    padding: 8px 20px;
+    margin-left: 10px;
+    color: #3F4665;
+}
+.item_controls{
+    margin-top:3px;
+    display: flex;
+    gap:20px;
+}
+.add_icon{
+    fill:#3F4665;
+    transition: .2s;
+    cursor: pointer;
+}
+.add_icon:hover{
+    fill:#626E95;
+}
+.delete_icon{
+    fill:#3F4665;
+    transition: .2s;
+    cursor: pointer;
+}
+.delete_icon:hover{
+    fill:#626E95;
+}
+.edit_icon{
+    fill:#3F4665;
+    transition: .2s;
+    cursor: pointer;
+}
+.edit_icon:hover{
+    fill:#626E95;
+}
+.item_wrapper h2{
+    cursor:default;
+}
+.item_wrapper nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px;
+    margin-bottom: 10px;
+}
+.item_wrapper form {
+    display: flex;
+    flex-direction: column;
+}
+.item_wrapper label{
+    font-size:18px;
+    font-weight: 700;
+    margin: 12px 10px 0px 10px;
+}
+.item_wrapper input{
+    border-radius: 0.75rem;
+    border: 1px solid #D4D7E3;
+
+    padding: 12px;
+    margin: 5px 10px;
+    font-size: 1rem;
+    background-color: transparent;
+    font-family: var(--font-noto-sans);
+}
+.item_wrapper select{
+    border-radius: 0.75rem;
+    border: 1px solid #D4D7E3;
+
+    padding: 12px;
+    font-size: 1rem;
+    background-color: transparent;
+    font-family: var(--font-noto-sans);
+}
+.item_wrapper button{
+    text-align: center;
+    background-color: #3F4665;
+    color: #D4D7E3;
+    transition-duration: .2s;
+    font-weight:600;
+    border-radius: 1rem;
+    margin: 10px 10px 0px 10px;
+    font-size: 20px;
+    padding: 15px;
+    border:none;
+    cursor: pointer;
+    font-family: var(--font-noto-sans);
+}
+.item_wrapper button:hover {
+    background-color: #626E95;
+    color: #EBECF3;
 }

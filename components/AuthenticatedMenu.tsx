@@ -10,6 +10,8 @@ import Image from "next/image"
 import styles from "@/components/styles/NavigationButton.module.css"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { FaUser } from "react-icons/fa";
+import { IconContext } from 'react-icons';
 
 export default function AuthenticatedMenu(props: any) {
   const [open, setOpen] = React.useState(false);
@@ -30,7 +32,6 @@ export default function AuthenticatedMenu(props: any) {
 
     setOpen(false);
   };
-
   const handleSignOut = () =>{
     signOut();
     };
@@ -67,7 +68,7 @@ export default function AuthenticatedMenu(props: any) {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <Image src={profileIcon} className={styles.profile_icon} alt="profile"/>
+          <IconContext.Provider value={{size:"32px", color:"#2D3142"}}><FaUser /></IconContext.Provider>
         </button>
         <Popper
           open={open}

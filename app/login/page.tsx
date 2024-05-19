@@ -8,11 +8,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn} from "next-auth/react";
-import { type AppDispatch } from "@/lib/store";
-import { useDispatch } from "react-redux";
 
 export default function Login(){
-    const dispatch: AppDispatch = useDispatch()
     const recaptchaRef = useRef();
     const router = useRouter();
     const [captchaCode, setCaptchaCode] = useState();
@@ -20,22 +17,26 @@ export default function Login(){
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+        // Additional check whether captcha is confirmed
         if(!captchaCode){
             setError("You have to confirm ReCAPTCHA!");
             return;
         }
+
         const email = event.target[0].value;
         const password = event.target[1].value;
+
         if(!email || !password){
             setError("All fields must be filled");
             return;
         }
+        // authentication with next-auth
         const res = await signIn("credentials", {
             redirect: false,
             email,
             password
         })
-                    
+
         if(res?.ok) {
             if(res?.url){
                 router.replace("/dashboard");
@@ -43,10 +44,11 @@ export default function Login(){
         }else{
             setError("Invalid email or password");
         }
+        // Resets captcha to prevent users from creating accounts without confirming captcha every time
         recaptchaRef.current?.reset();
         setCaptchaCode(undefined);
-    };
-        const onReCAPTCHAChange = (captchaCode: any) => {
+    }
+    const onReCAPTCHAChange = (captchaCode: any) => {
         if(!captchaCode) {
             return;
         }
