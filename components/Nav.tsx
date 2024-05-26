@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect} from "react";
+import React from "react";
 import styles from "./styles/NavigationButton.module.css"
 import activeIcon from "@/public/active-button.svg"
 import Image from "next/image";

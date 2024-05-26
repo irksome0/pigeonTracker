@@ -17,9 +17,8 @@ export default function UserContainer(props: any){
     }
     const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault()
-        const email = event.target.children[1].innerText
         if(action == "delete"){
-            deleteUser(email, currentUserEmail)
+            deleteUser(props.email, props.currentUser)
         }else{
             console.log("view")
         }

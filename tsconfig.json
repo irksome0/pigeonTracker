@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/utils/db.js", "app/models/User.js", "components/UsersList.jsx", "utils/useSessionStorage.js", "configs/auth.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/utils/db.js", "app/models/User.js", "components/UsersList.jsx", "utils/useSessionStorage.js", "configs/auth.js", "components/CountrySelector.jsx", "components/PigeonItem.tsx"],
   "exclude": ["node_modules"]
 }

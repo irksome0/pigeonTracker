@@ -1,21 +1,23 @@
 "use server"
 
-export const createPigeon = async(props) =>{
-
-    const response = await fetch("https://localhost:7083/api/Pigeons",{
+export const createPigeon = async(pigeonNumber, yearOfBirth, gender, colour, country, mother, father, userEmail) =>{
+    
+    const response = await fetch("http://localhost:5206/api/Pigeons",{
         method:"POST",
         headers:{
-            "Content-type": "application/json", 
+            "Content-type": "application/json",
+            "accept": "*/*",
         },
-        body:{
-                "pigeonNumber": props.pigeonNumber,
-                "yearOfBirth": props.yearOfBirth,
-                "gender": props.Gender,
-                "colour": props.Colour,
-                "country": props.Country,
-                "mother": props.Mother,
-                "father": props.Father,
-                "ownerId": props.userEmail
-        }
-    })
+        body: JSON.stringify({
+                "pigeonNumber": pigeonNumber,
+                "yearOfBirth": yearOfBirth,
+                "gender": gender,
+                "colour": colour,
+                "country": country,
+                "mother": mother,
+                "father": father,
+                "email": userEmail
+        })
+    });
+    console.log(response)
 }

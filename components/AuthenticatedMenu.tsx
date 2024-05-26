@@ -5,18 +5,18 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import profileIcon from "@/public/profile-button.png"
-import Image from "next/image"
 import styles from "@/components/styles/NavigationButton.module.css"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FaUser } from "react-icons/fa";
 import { IconContext } from 'react-icons';
+import {checkAdmin} from "@/utils/checkAdmin"
 
 export default function AuthenticatedMenu(props: any) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const router = useRouter()
+  const [isAdmin, setIsAdmin] = React.useState(false)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -35,8 +35,8 @@ export default function AuthenticatedMenu(props: any) {
   const handleSignOut = () =>{
     signOut();
     };
-  const handleRedirect = () => {
-    router.replace("/dashboard")
+  const handleRedirect = (val: string) => {
+    router.replace(val)
   };
 
   function handleListKeyDown(event: React.KeyboardEvent) {
@@ -57,6 +57,14 @@ export default function AuthenticatedMenu(props: any) {
 
     prevOpen.current = open;
   }, [open]);
+
+  React.useEffect(() => {
+    checkAdmin(props.email)
+    .then((res) => setIsAdmin(res))
+    .catch((error) => console.error("Error fetching data:", error))
+  }, [])
+
+  React.use
 
   return (
       <div>
@@ -83,7 +91,7 @@ export default function AuthenticatedMenu(props: any) {
               {...TransitionProps}
               style={{
                 transformOrigin:
-                  placement === 'bottom-start' ? 'left top' : 'left bottom',
+                  placement === 'bottom-start' ? 'right bottom' : 'right top',
               }}
             >
               <Paper style={{backgroundColor:"#F9FAFB", color:"#2D3142",}}>
@@ -94,8 +102,14 @@ export default function AuthenticatedMenu(props: any) {
                     onKeyDown={handleListKeyDown}
                   >
                     <h3 style={{margin:"4px 0px 8px 16px"}}>{props.name}</h3>
+                    {isAdmin ?(
                     <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) => {
-                        handleRedirect();
+                        handleRedirect("controlpanel");
+                        handleClose(event);
+                    }}>Control Panel</MenuItem>
+                    ):false}
+                    <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) => {
+                        handleRedirect("dashboard");
                         handleClose(event);
                     }}>Dashboard</MenuItem>
                     <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) =>{
