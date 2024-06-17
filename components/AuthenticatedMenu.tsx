@@ -62,7 +62,7 @@ export default function AuthenticatedMenu(props: any) {
     checkAdmin(props.email)
     .then((res) => setIsAdmin(res))
     .catch((error) => console.error("Error fetching data:", error))
-  }, [])
+  },)
 
   React.use
 

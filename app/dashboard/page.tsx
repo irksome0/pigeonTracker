@@ -8,11 +8,9 @@ import { IconContext } from "react-icons";
 import { TbTrashFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import BirthyearSelector from "@/components/BirthyearSelector";
-import CountrySelector from "@/components/CountrySelector.jsx";
 import {createPigeon} from "@/utils/createPigeon";
 import { getPigeons} from "@/utils/getPigeons";
 import { PigeonItem } from "@/components/PigeonItem";
-import { useAppSelector } from "@/lib/store";
 import {updatePigeon} from "@/utils/updatePigeon"
 import {deletePigeon} from "@/utils/deletePigeon"
 
@@ -38,7 +36,6 @@ export default function Dashboard(){
         father:0,
         email:"",
     }])
-    const pigeonSelector = useAppSelector((state) => (state.pigeonReducer))
     const randomNumberInRange = (min=0, max=1000000) => {
         return Math.floor(Math.random()
             * (max - min + 1)) + min;
@@ -52,26 +49,23 @@ export default function Dashboard(){
         setDisabled(prev => !prev)
         setAction("edit")
     }
-    const setDeleteMode = () => {
-        setAction("delete");
-        setDisabled(prev => !prev)
+    const handleDeletePigeon = () => {
+        const i = (document.getElementById("id") as HTMLInputElement).value;
+        deletePigeon(i)
     }
     const setSelectedItem = () =>{
 
     }
-    const createPigeonFunc = (code: number,
+    const handleCreatePigeon = (code: number,
          birthyear: number, country :string,
           colour:string, gender: string, mother: number, father: number) =>{
         createPigeon(code,birthyear,gender,colour,country, mother,father, session?.user?.email)
     }
-    const updatePigeonFunc = (id:number,code: number,
+    const handleUpdatePigeon = (id:number,code: number,
         birthyear: number, country :string,
          colour:string, gender: string, mother: number, father: number) =>{
-            updatePigeon({id,code,birthyear,country,colour,gender,mother,father});
+            updatePigeon(id,code,birthyear,country,colour,gender,mother,father, session?.user?.email);
         }
-    const deletePigeonFunc = (id:number) => {
-        deletePigeon(id)
-    }
     useEffect(()=>{
         if(session?.user?.email){
             getPigeons(session?.user?.email)
@@ -85,23 +79,25 @@ export default function Dashboard(){
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
+        console.log(event)
         const code = !event.target[0].value ? randomNumberInRange() : event.target[0].value
         const birthyear = Number(event.target[1].value)
-        const country = event.target[2].value ? event.target[2].value : "none"
-        const colour = event.target[3].value 
-        const gender = event.target[4].value == "Hen" ? "F" : "M"
-        const mother = Number(event.target[5].value)
-        const father = Number(event.target[6].value)
-        const id = Number(event.target[7].value)
+        const country = "none"
+        const colour = event.target[2].value 
+        const gender = event.target[3].value == "hen" ? "F" : "M"
+        const mother = Number(event.target[4].value)
+        const father = Number(event.target[5].value)
+        const id = Number(event.target[6].value)
         switch(action){
             case "create":
-                createPigeonFunc(code, birthyear, country, colour, gender, mother, father);
+                handleCreatePigeon(code, birthyear, country, colour, gender, mother, father);
+                setDisabled(prev => !prev);
                 break;
-            case "delete":
-                deletePigeonFunc(id)
+            case "edit":
+                handleUpdatePigeon(id,code, birthyear, country, colour, gender, mother, father);
+                setDisabled(prev => !prev)
                 break;
         }
-        console.log("works!")
     }
     return(
         <>
@@ -109,7 +105,7 @@ export default function Dashboard(){
                 <div className={styles.list_wrapper}>
                     <h1>Your pigeons</h1>
                     <div className={styles.list_container}>
-                        {pigeons.map((element) => <PigeonItem pigeonNumber={element.pigeonNumber} gender={element.gender} colour={element.colour}
+                        {pigeons.map((element, index) => <PigeonItem type="dashboard" key={index} pigeonNumber={element.pigeonNumber} gender={element.gender} colour={element.colour}
                         country={element.country} yearOfBirth={element.yearOfBirth} id={element.id} mother={element.mother} father={element.father}/>)}
                     </div>
                 </div>
@@ -120,17 +116,15 @@ export default function Dashboard(){
                             <IconContext.Provider value={{size:"30px"}}>
                                 <IoIosAddCircle onClick={setCreateMode} className={styles.add_icon}/>
                                 <IoMdCreate onClick={setEditMode} className={styles.edit_icon}/>
-                                <TbTrashFilled onClick={setDeleteMode} className={styles.delete_icon}/>
+                                <TbTrashFilled onClick={handleDeletePigeon} className={styles.delete_icon}/>
                             </IconContext.Provider>
                         </div>
                     </nav>
                     <form id="item-form" onSubmit={handleSubmit}>
                         <label htmlFor="code">Code</label>
-                        <input id="code" name="code" type="number" min="6" disabled={true}/>
+                        <input id="code" name="code" type="number" min="6" disabled={isDisabled}/>
                         <label htmlFor="birthyear">Year of birth</label>
                         <BirthyearSelector id="birthyear" dis={isDisabled}/>
-                        <label htmlFor="country" >Country</label>
-                        <CountrySelector id="country" dis={isDisabled}/>
                         <label htmlFor="colour">Colour</label>
                         <input id="colour" name="colour" type="text" disabled={isDisabled}/>
                         <label htmlFor="gender">Gender</label>

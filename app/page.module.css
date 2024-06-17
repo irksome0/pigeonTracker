@@ -34,11 +34,3 @@
   background-color: #9786FF;
   color: #F4F2FF;
 }
-.button_part_3 {
-  margin-right: 20px;
-  filter: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(201%) hue-rotate(191deg) brightness(93%) contrast(92%);
-  transition-duration: .2s;
-}
-body:has(.index_container .button_auth:hover) .button_part_3 {
-  filter: brightness(0) saturate(100%) invert(93%) sepia(2%) saturate(1034%) hue-rotate(198deg) brightness(105%) contrast(91%);
-}

@@ -7,12 +7,13 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FaRegCircle } from "react-icons/fa";
 
 export default function RegisterPage(){
     const [error, setError] = useState("")
     const router = useRouter();
     const [captchaCode, setCaptchaCode] = useState();
-    const recaptchaRef = useRef()
+    const recaptchaRef = useRef<any>()
 
     const isValidEmail = (email: string) => {
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -108,10 +109,10 @@ export default function RegisterPage(){
             </div>
             <ReCAPTCHA
                 ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
                 onChange={onReCAPTCHAChange}
             />
-            <button type="submit" className={styles.button_auth}><Image src={activeIcon} className={styles.button_part_4} alt="icon"/>Register</button>
+            <button type="submit" className={styles.button_auth}><FaRegCircle style={{fontSize: "1rem", position:"relative",top:"1px"}}/>  Register</button>
             <p style={{color:"red"}}>{error && error}</p>
              <p>
                 Already have an account?

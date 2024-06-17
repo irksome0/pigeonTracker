@@ -37,7 +37,7 @@
     transition: .1s ease-in-out;
 }
 .user_container:hover{
-    transform: translate(0px,-2px);
+    scale: 1.02;
 }
 .user_container:hover h4{
     color: #3F4665;
@@ -83,6 +83,7 @@
 .user_container_controls button:hover {
     background-color: #626E95;
     color: #EBECF3;
+    scale: 1.02;
 }
 .trash_icon{
     fill: #3F4665;
@@ -90,6 +91,7 @@
     cursor: pointer;
 }
 .trash_icon:hover{
-    transform: translate(0px, -3px);
+    transform: translate(0px, -2px);
+    scale: 1.1;
     fill: rgb(182, 42, 42);
 }

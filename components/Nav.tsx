@@ -2,27 +2,26 @@
 
 import React from "react";
 import styles from "./styles/NavigationButton.module.css"
-import activeIcon from "@/public/active-button.svg"
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import  AuthenticatedMenu from "@/components/AuthenticatedMenu"
+import { FaRegCircle } from "react-icons/fa";
 
 export default function Nav(){
     const router = useRouter()
     const {data: session} = useSession()
 
     return(
-        <div>
+        <>
             {!session ?(
             <nav>
                 <button onClick={() => router.replace("/login")} className={styles.button_base}>
-                    <Image src={activeIcon} className={styles.button_part_1} alt="icon"/>
+                    <FaRegCircle style={{fontSize: "1rem", position:"relative",bottom:"1px", right:"5px"}}/>
                     Log in
                 </button>
                 <button onClick={() => router.replace("/register")} className={styles.button_primary}>
-                        <Image src={activeIcon} className={styles.button_part_2}alt="icon"/>
-                        Sign up
+                    <FaRegCircle style={{fontSize: "1rem", position:"relative",bottom:"1px", right:"5px"}}/>
+                    Sign up
                 </button>
             </nav>
             ):(
@@ -31,6 +30,6 @@ export default function Nav(){
             </nav>
             )
             }
-        </div>
+        </>
     )
 }

@@ -6,7 +6,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import SessionProvider from "@/utils/sessionProvider"
-import { ReduxProvider } from "@/lib/provider";
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
@@ -33,7 +32,7 @@ export default async function RootLayout({
                 <Nav/>
               </header>
               <Content style={{padding: "0 48px", display:"flex", justifyContent: "center", alignItems:"center"}}>
-                <ReduxProvider>{children}</ReduxProvider>
+                {children}
               </Content>
             </Layout>
         </SessionProvider>

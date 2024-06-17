@@ -1,9 +1,6 @@
-import { userCreate } from "@/lib/features/user/userSlice";
-import { AppDispatch } from "@/lib/store";
 import type { AuthOptions } from "next-auth";
 import  CredentialsProvider from "next-auth/providers/credentials";
 import { cookies} from "next/headers";
-import { useDispatch } from "react-redux";
 
 export const authConfig: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,

@@ -32,7 +32,7 @@ export default function ControlPanel(){
         })
         .catch((error) => console.error("Error fetching data:", error))
       }
-    }, [session])
+    }, [session,router])
     return (
       <div>
         <div className={styles.controlpanel_wrapper}>

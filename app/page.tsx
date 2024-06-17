@@ -1,7 +1,6 @@
 
-import Image from "next/image";
 import styles from "./page.module.css";
-import tryIcon from "../public/try-button-element.svg"
+import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function Home() {
 
@@ -13,7 +12,7 @@ export default function Home() {
             PigeonTracker is a platform where you can notate pigeons by numbers and connect with their parents as well!<br />
             We also provide saving all of your notations as a relative table in pdf format!
       </p>
-      <a className={styles.button_auth} href={"/register"}><Image src={tryIcon} className={styles.button_part_3} alt="icon"/>Try it now</a>
+      <a className={styles.button_auth} href={"/register"}><FaArrowRightLong style={{position:"relative",top:"2px"}}/>  Try it now</a>
     </div>
   );
 }

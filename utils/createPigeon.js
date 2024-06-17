@@ -19,5 +19,4 @@ export const createPigeon = async(pigeonNumber, yearOfBirth, gender, colour, cou
                 "email": userEmail
         })
     });
-    console.log(response)
 }

@@ -8,9 +8,10 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn} from "next-auth/react";
+import { FaRegCircle } from "react-icons/fa";
 
 export default function Login(){
-    const recaptchaRef = useRef();
+    const recaptchaRef = useRef<any>();
     const router = useRouter();
     const [captchaCode, setCaptchaCode] = useState();
     const [error, setError] = useState("");
@@ -69,10 +70,10 @@ export default function Login(){
                 </div>
                 <ReCAPTCHA
                 ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
                 onChange={onReCAPTCHAChange}
             />
-                <button type="submit" className={styles.button_auth}><Image src={activeIcon} className={styles.button_part_4} alt="icon"/>Log in</button>
+                <button type="submit" className={styles.button_auth}><FaRegCircle style={{fontSize: "1rem", position:"relative",top:"1px"}}/>  Log in</button>
                 <p style={{color:"red"}}>{error && error}</p>
                  <p>
                      Don&apos;t have an account?

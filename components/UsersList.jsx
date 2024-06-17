@@ -6,5 +6,5 @@ export const UsersList = async (user) => {
     const dt = await token;
     const data = getUsers(dt.value, user);
     const res = await data;
-    return res
+    return res;
 }

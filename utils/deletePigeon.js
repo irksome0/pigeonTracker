@@ -8,5 +8,4 @@ export const deletePigeon = async (id) => {
         "accept": "*/*"
     },
     });
-    console.log(response)
 }

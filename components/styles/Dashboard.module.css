@@ -48,6 +48,7 @@
 }
 .add_icon:hover{
     fill:#626E95;
+    scale: 1.1;
 }
 .delete_icon{
     fill:#3F4665;
@@ -56,6 +57,7 @@
 }
 .delete_icon:hover{
     fill:#626E95;
+    scale: 1.1;
 }
 .edit_icon{
     fill:#3F4665;
@@ -64,6 +66,7 @@
 }
 .edit_icon:hover{
     fill:#626E95;
+    scale:1.1;
 }
 .item_wrapper h2{
     cursor:default;
@@ -85,7 +88,7 @@
 }
 .item_wrapper input{
     border-radius: 8px;
-    border: 1px solid rgb(127, 140, 182);
+    border: 1px solid #7f8cb6;
     color: #3F4665;
     font-size: 1rem;
     font-family: var(--font-noto-sans);
@@ -111,7 +114,6 @@
     text-align: center;
     background-color: #3F4665;
     color: #D4D7E3;
-    transition-duration: .2s;
     font-weight:600;
     border-radius: 8px;
     margin: 10px 100px 0px 100px;
@@ -122,10 +124,13 @@
     font-family: var(--font-noto-sans);
     font-weight: 700;
     letter-spacing: 1.5px;
+
+    transition: .2s ease-in;
 }
 .item_wrapper button:hover {
     background-color: #626E95;
     color: #EBECF3;
+    scale: 1.05;
 }
 .item_wrapper input:disabled{
     border: 1px solid #D4D7E3;
@@ -133,4 +138,3 @@
 .item_wrapper select:disabled{
     border: 1px solid #D4D7E3;
 }
-
