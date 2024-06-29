@@ -48,3 +48,11 @@
     font-family: var(--font-noto-sans);
     font-weight: 700;
 }
+@media (max-width: 900px) {
+    .button_base{
+      font-size:1em;
+    }
+    .button_primary{
+        font-size:1em;
+    }
+  }

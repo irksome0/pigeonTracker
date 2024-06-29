@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn} from "next-auth/react";
 import { FaRegCircle } from "react-icons/fa";
+import { revalidate } from "@/utils/revalidate";
 
 export default function Login(){
     const recaptchaRef = useRef<any>();
@@ -41,6 +42,8 @@ export default function Login(){
         if(res?.ok) {
             if(res?.url){
                 router.replace("/dashboard");
+                revalidate("/dashboard");
+                router.refresh();
             }
         }else{
             setError("Invalid email or password");

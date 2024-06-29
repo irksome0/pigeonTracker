@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import SessionProvider from "@/utils/sessionProvider"
+import { revalidate } from "@/utils/revalidate";
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
@@ -31,7 +32,7 @@ export default async function RootLayout({
                 <Link href={"/"} className="logo-text">Pigeon Tracker</Link>
                 <Nav/>
               </header>
-              <Content style={{padding: "0 48px", display:"flex", justifyContent: "center", alignItems:"center"}}>
+              <Content style={{padding: "0 24px", display:"flex", justifyContent: "center", alignItems:"center"}}>
                 {children}
               </Content>
             </Layout>

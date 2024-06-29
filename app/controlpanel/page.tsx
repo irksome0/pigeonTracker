@@ -37,7 +37,7 @@ export default function ControlPanel(){
       <div>
         <div className={styles.controlpanel_wrapper}>
             {users.map(element => 
-              <UserContainer key={element.username} username={element.username} email={element.email} currentUser={session?.user?.email}/>
+              <UserContainer key={element.username} username={element.username} email={element.email} currentUser={session?.user?.email as string}/>
             )}   
         </div>
       </div>

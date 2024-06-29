@@ -1,5 +1,5 @@
 import { useSessionStorage } from "@/utils/useSessionStorage";
-import {getUsers} from "@/utils/getUsers";
+import {getUsers} from "@/utils/getUsers.ts";
 
 export const UsersList = async (user) => {
     const token = useSessionStorage("jwt");

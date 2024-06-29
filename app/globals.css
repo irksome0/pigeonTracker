@@ -17,10 +17,19 @@ nav{
   color: #2D3142;
   cursor: pointer;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .logo-text:hover{
   color:inherit;
 }
 .bg{
   background: linear-gradient(120deg, rgba(234,232,255,1), rgba(216,212,255,1), rgba(186,178,255,1));
+}
+@media (max-width: 900px) {
+  header{
+    margin: 50px 50px 0px 50px;
+  }
+  .logo-text{
+    font-size:1.5em;
+  }
 }

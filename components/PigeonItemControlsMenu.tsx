@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
@@ -8,21 +10,21 @@ import MenuList from '@mui/material/MenuList';
 import styles from "@/components/styles/Navigation.module.css"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { FaUser } from "react-icons/fa";
 import { IconContext } from 'react-icons';
-import {checkAdmin} from "@/utils/checkAdmin"
 import { revalidate } from '@/utils/revalidate';
+import { IoIosAddCircle, IoMdCreate, IoMdMenu } from 'react-icons/io';
+import { TbTrashFilled } from 'react-icons/tb';
 
-interface UserState{
-  name: string | undefined;
-  email: string | undefined;
+interface PigeonItemControlsMenuProps{
+    setCreateMode: () => void;
+    setEditMode: () => void;
+    deleteItem: () => void;
 }
 
-export default function AuthenticatedMenu(props: UserState){
+export default function PigeonItemControlsMenu(props:PigeonItemControlsMenuProps){
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const router = useRouter()
-  const [isAdmin, setIsAdmin] = React.useState(false)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -38,9 +40,6 @@ export default function AuthenticatedMenu(props: UserState){
 
     setOpen(false);
   };
-  const handleSignOut = () =>{
-    signOut();
-    };
 
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === 'Tab') {
@@ -51,7 +50,6 @@ export default function AuthenticatedMenu(props: UserState){
     }
   }
 
-  // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -61,22 +59,10 @@ export default function AuthenticatedMenu(props: UserState){
     prevOpen.current = open;
   }, [open]);
 
-  React.useEffect(() => {
-    checkAdmin(props.email as string)
-    .then((res) => setIsAdmin(res))
-    .catch((error) => console.error("Error fetching data:", error))
-  },)
-
-  const handleRedirect = (path: string) => {
-    router.replace(path);
-    revalidate(path);
-    router.refresh();
-}
-
   React.use
 
   return (
-      <div>
+      <>
         <button
           ref={anchorRef}
           className={styles.profile_button}
@@ -85,7 +71,7 @@ export default function AuthenticatedMenu(props: UserState){
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <IconContext.Provider value={{size:"28px", color:"#2D3142"}}><FaUser /></IconContext.Provider>
+          <IconContext.Provider value={{size:"24px", color:"#2D3142"}}><IoMdMenu/></IconContext.Provider>
         </button>
         <Popper
           open={open}
@@ -110,27 +96,30 @@ export default function AuthenticatedMenu(props: UserState){
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <h3 style={{margin:"4px 0px 8px 16px"}}>{props.name}</h3>
-                    {isAdmin ?(
+                    <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={() => {
+                        props.setCreateMode();
+                    }}>
+                        <h3>Create</h3>
+                        <IoIosAddCircle style={{marginTop:"4px"}} className={styles.icon}/>
+                    </MenuItem>
                     <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) => {
-                        handleRedirect("/controlpanel");
-                        handleClose(event);
-                    }}>Control Panel</MenuItem>
-                    ):false}
+                        props.setEditMode();
+                    }}>
+                        <h3>Edit</h3>
+                        <IoMdCreate style={{marginTop:"4px"}} className={styles.icon}/>
+                    </MenuItem>
                     <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) => {
-                        handleRedirect("/dashboard");
-                        handleClose(event);
-                    }}>Dashboard</MenuItem>
-                    <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) =>{
-                        handleSignOut();
-                        handleClose(event);
-                        }}>Logout</MenuItem>
-                  </MenuList>
+                        props.deleteItem();
+                    }}>
+                        <h3>Delete</h3>
+                        <TbTrashFilled style={{marginTop:"4px"}} className={styles.icon}/>
+                    </MenuItem>
+                    </MenuList>
                 </ClickAwayListener>
               </Paper>
             </Grow>
           )}
         </Popper>
-      </div>
+      </>
   );
 }

@@ -1,3 +1,4 @@
+
 import styles from "@/components/styles/PigeonItem.module.css"
 import specialStyles from "@/components/styles/Modal.module.css"
 import { MdInvertColors } from "react-icons/md";
@@ -6,7 +7,18 @@ import { IoMdWoman, IoMdMan } from "react-icons/io";
 import { IoMdCreate } from "react-icons/io";
 import { GiNewBorn } from "react-icons/gi";
 
-export const PigeonItem = (props: any) => {
+interface PigeonItemProps{
+    type: string | undefined;
+    pigeonNumber: number | string | undefined;
+    id: number | null;
+    gender: string | undefined;
+    colour: string | undefined;
+    yearOfBirth: number | null;
+    mother: number | string | undefined;
+    father: number | string | undefined;
+}   
+
+export const PigeonItem = (props: PigeonItemProps) => {
 
     const selectPigeon = (event: any) => {
         event.preventDefault();
@@ -25,7 +37,7 @@ export const PigeonItem = (props: any) => {
         (document.getElementById("mother") as HTMLInputElement).value = mother;
         (document.getElementById("father") as HTMLInputElement).value = father;
     }
-    if(props.type == "dashboard"){
+    if(props.type === "dashboard"){
         return(
             <form onSubmit={selectPigeon} className={styles.item_container}>
                 <div className={styles.item_headers}>

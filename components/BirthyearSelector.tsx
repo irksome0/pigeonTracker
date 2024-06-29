@@ -1,7 +1,12 @@
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 
-export default function BirthyearSelector(props:any){
+interface BirthyearState{
+    dis: boolean;
+    id: string | undefined;
+}
+
+export default function BirthyearSelector(props: BirthyearState){
     const inputProps = {
         placeholder: "N/A",
         disabled: props.dis,

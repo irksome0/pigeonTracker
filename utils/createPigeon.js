@@ -2,7 +2,7 @@
 
 export const createPigeon = async(pigeonNumber, yearOfBirth, gender, colour, country, mother, father, userEmail) =>{
     
-    const response = await fetch("http://localhost:5206/api/Pigeons",{
+    await fetch("http://localhost:5206/api/Pigeons",{
         method:"POST",
         headers:{
             "Content-type": "application/json",

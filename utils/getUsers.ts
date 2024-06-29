@@ -1,6 +1,6 @@
 "use server"
 
-export const getUsers = async (token, mail) =>{
+export const getUsers = async (token: string, email: string) =>{
     const userData = await fetch("http://127.0.0.1:3001/api/users",{
         method:"POST",
         headers:{
@@ -10,7 +10,7 @@ export const getUsers = async (token, mail) =>{
         },
         credentials: "include",
         body: JSON.stringify({
-            email: mail,
+            email: email,
         }),
     })
     const data = await userData.json()

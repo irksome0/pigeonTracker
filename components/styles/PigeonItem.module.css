@@ -66,3 +66,14 @@
     color: green;
     transform:scale(1.1,1.1);
 }
+@media (max-width: 800px){
+    .item_container{
+        padding: 6px 8px;
+    }
+    .item_container h3{
+        font-size: 16px;
+    }
+    .item_container p{
+        font-size: 10px;
+    }
+}

@@ -15,7 +15,7 @@
     float:left;
 }
 .input_wrapper{
-    width: 400px;
+    max-width: 400px;
     margin-bottom: 24px;
 
     display: flex;
@@ -42,6 +42,7 @@
     border-radius: 0.5rem;
     border: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 .button_auth:hover {
     background-color: #9786FF;
@@ -56,4 +57,16 @@
 }
 .link:hover {
     color: #7755FD;
+}
+
+@media (max-width: 600px){
+    .authentication_wrapper{
+        padding: 1rem 1.5rem;
+    }
+    .authentication_wrapper h1{
+        font-size: 1.2rem;
+    }
+    .button_auth{
+        font-size: 1rem;
+    }
 }

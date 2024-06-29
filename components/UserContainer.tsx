@@ -7,12 +7,13 @@ import {getUserPigeons} from "@/utils/getUserPigeons";
 import { UsersPigeons } from "./UsersPigeons";
 import { createPortal } from "react-dom";
 
-export default function UserContainer(props: any){
+interface UserContainerProps{
+    email: string | undefined;
+    currentUser: string | undefined;
+    username: string | undefined;
+}
 
-    const [action, setAction] = useState("none")
-    const [isModalHidded, setIsModalHidden] = useState(true)
-    const [pigeons, setPigeons] = useState([
-        {
+const initialPigeonsState = {
         id:0,
         pigeonNumber:0,
         yearOfBirth:0,
@@ -22,7 +23,13 @@ export default function UserContainer(props: any){
         mother:0,
         father:0,
         email:""
-    }])
+};
+
+export default function UserContainer(props: UserContainerProps){
+
+    const [action, setAction] = useState("none")
+    const [isModalHidded, setIsModalHidden] = useState(true)
+    const [pigeons, setPigeons] = useState([initialPigeonsState])
 
     const handleDeleteUser = () => {
         setAction("delete")
@@ -38,7 +45,7 @@ export default function UserContainer(props: any){
     const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault()
         if(action == "delete"){
-            deleteUser(props.email, props.currentUser)
+            deleteUser(props.email as string, props.currentUser as string)
         }else{
             console.log("view")
         }
@@ -49,7 +56,6 @@ export default function UserContainer(props: any){
                 <UsersPigeons pigeons={pigeons} hidden={isModalHidded} handleClose={() => setIsModalHidden(true)}/>,
                 document.body
             )}
-            {/* <UsersPigeons pigeons={pigeons} hidden={isModalHidded}/> */}
             <div key={props.username} className={styles.user_container}>
                 <form onSubmit={handleSubmit}>
                     <h4>Email</h4>

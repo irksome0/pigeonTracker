@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import styles from "./page.module.css";
 import { FaArrowRightLong } from "react-icons/fa6";
 
@@ -12,7 +13,7 @@ export default function Home() {
             PigeonTracker is a platform where you can notate pigeons by numbers and connect with their parents as well!<br />
             We also provide saving all of your notations as a relative table in pdf format!
       </p>
-      <a className={styles.button_auth} href={"/register"}><FaArrowRightLong style={{position:"relative",top:"2px"}}/>  Try it now</a>
+      <Link className={styles.button_auth} href={"/register"}><FaArrowRightLong style={{position:"relative",top:"3px"}}/>  Try it now</Link>
     </div>
   );
 }

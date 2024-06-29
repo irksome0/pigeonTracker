@@ -17,20 +17,43 @@
   line-height:22px;
 }
 .button_auth {
+  width:100%;
+
   font-family: var(--font-noto-sans);
   font-weight: 900;
   text-align: center;
   text-decoration: none;
-  width:100%;
   font-size: 1.2rem;
+
   padding: 0.6rem 0 0.6rem 0;
+
   background-color: #7755FD;
-  color: #EAE8FF  ;
-  transition-duration: .2s;
+  color: #EAE8FF;
+
   border-radius: 0.75rem;
   border: none;
+
+  transition: .1s ease-in;
+  -webkit-tap-highlight-color: transparent;
 }
 .button_auth:hover {
   background-color: #9786FF;
   color: #F4F2FF;
+  scale: 1.02;
+}
+@media (max-width: 600px){
+  .index_wrapper{
+    padding: 10px 24px;
+  }
+  .index_wrapper h1{
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .index_wrapper_p{
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  .button_auth{
+    font-size:1rem;
+  }
 }

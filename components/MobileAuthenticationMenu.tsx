@@ -8,17 +8,12 @@ import MenuList from '@mui/material/MenuList';
 import styles from "@/components/styles/Navigation.module.css"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { FaUser } from "react-icons/fa";
 import { IconContext } from 'react-icons';
 import {checkAdmin} from "@/utils/checkAdmin"
 import { revalidate } from '@/utils/revalidate';
+import { IoMdMenu } from 'react-icons/io';
 
-interface UserState{
-  name: string | undefined;
-  email: string | undefined;
-}
-
-export default function AuthenticatedMenu(props: UserState){
+export default function MobileAuthenticationMenu(){
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const router = useRouter()
@@ -61,12 +56,6 @@ export default function AuthenticatedMenu(props: UserState){
     prevOpen.current = open;
   }, [open]);
 
-  React.useEffect(() => {
-    checkAdmin(props.email as string)
-    .then((res) => setIsAdmin(res))
-    .catch((error) => console.error("Error fetching data:", error))
-  },)
-
   const handleRedirect = (path: string) => {
     router.replace(path);
     revalidate(path);
@@ -76,7 +65,7 @@ export default function AuthenticatedMenu(props: UserState){
   React.use
 
   return (
-      <div>
+      <>
         <button
           ref={anchorRef}
           className={styles.profile_button}
@@ -85,7 +74,7 @@ export default function AuthenticatedMenu(props: UserState){
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <IconContext.Provider value={{size:"28px", color:"#2D3142"}}><FaUser /></IconContext.Provider>
+          <IconContext.Provider value={{size:"32px", color:"#2D3142"}}><IoMdMenu/></IconContext.Provider>
         </button>
         <Popper
           open={open}
@@ -110,27 +99,20 @@ export default function AuthenticatedMenu(props: UserState){
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <h3 style={{margin:"4px 0px 8px 16px"}}>{props.name}</h3>
-                    {isAdmin ?(
                     <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) => {
-                        handleRedirect("/controlpanel");
+                        handleRedirect("/login");
                         handleClose(event);
-                    }}>Control Panel</MenuItem>
-                    ):false}
+                    }}>Log in</MenuItem>
                     <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) => {
-                        handleRedirect("/dashboard");
+                        handleRedirect("/register");
                         handleClose(event);
-                    }}>Dashboard</MenuItem>
-                    <MenuItem style={{fontFamily:"var(--font-noto-sans)", fontWeight:"600"}} onClick={(event) =>{
-                        handleSignOut();
-                        handleClose(event);
-                        }}>Logout</MenuItem>
-                  </MenuList>
+                    }}>Sign in</MenuItem>
+                    </MenuList>
                 </ClickAwayListener>
               </Paper>
             </Grow>
           )}
         </Popper>
-      </div>
+      </>
   );
 }
