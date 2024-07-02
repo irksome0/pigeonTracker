@@ -1,6 +1,15 @@
 "use server"
 
-export const createPigeon = async(pigeonNumber, yearOfBirth, gender, colour, country, mother, father, userEmail) =>{
+export const createPigeon = async(
+    pigeonNumber:number, 
+    yearOfBirth:number, 
+    gender:string, 
+    colour:string, 
+    country:string, 
+    mother:number, 
+    father:number, 
+    userEmail:string
+) => {
     
     await fetch("http://localhost:5206/api/Pigeons",{
         method:"POST",

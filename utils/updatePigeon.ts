@@ -1,6 +1,15 @@
 "use server";
 
-export const updatePigeon = async (id,pigeonNumber,yearOfBirth,country,colour,gender,mother,father,email) => {
+export const updatePigeon = async (
+    id: number,
+    pigeonNumber:number,
+    yearOfBirth:number,
+    country:string,
+    colour:string,
+    gender:string,
+    mother:number,
+    father:number,
+    email:string) => {
     await fetch(`http://localhost:5206/api/Pigeons/${id}`,{
         method:"PUT",
         headers:{

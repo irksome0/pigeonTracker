@@ -25,7 +25,7 @@ export default function ControlPanel(){
           if(!res){
             router.replace("/")
           }else{
-            UsersList(session?.user?.email)
+            UsersList(session?.user?.email as string)
           .then(result => setUsers(result))
           .catch(error => console.error('Error fetching data:', error));
           }

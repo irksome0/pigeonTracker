@@ -30,7 +30,9 @@
     flex-direction: row;
     align-items: center;
 }
-
+.navigation{
+    display: inline-flex;
+}
 .button_base:hover {
     color: #2D3142;
 }

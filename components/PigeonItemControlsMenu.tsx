@@ -8,10 +8,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import styles from "@/components/styles/Navigation.module.css"
-import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { IconContext } from 'react-icons';
-import { revalidate } from '@/utils/revalidate';
 import { IoIosAddCircle, IoMdCreate, IoMdMenu } from 'react-icons/io';
 import { TbTrashFilled } from 'react-icons/tb';
 
@@ -24,7 +21,6 @@ interface PigeonItemControlsMenuProps{
 export default function PigeonItemControlsMenu(props:PigeonItemControlsMenuProps){
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
-  const router = useRouter()
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -65,7 +61,7 @@ export default function PigeonItemControlsMenu(props:PigeonItemControlsMenuProps
       <>
         <button
           ref={anchorRef}
-          className={styles.profile_button}
+          className={styles.button_base}
           aria-controls={open ? 'composition-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"

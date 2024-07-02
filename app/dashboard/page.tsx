@@ -75,13 +75,14 @@ export default function Dashboard(){
     });
     const [isInputDisabled, setInputDisabled] = useState(true);
     const [action, setAction] = useState("create");
+    const [formError, setFormError] = useState("");
     const [pigeons, setPigeons] = useState([initialPigeonsListState]);
     const [pedigree, setPedigree] = useState<PedigreeItem>(initialPedigreeState);
-    const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [isSmallScreen, setSmallScreen] = useState<boolean>(false);
 
     useEffect(()=>{
         if(session?.user?.email){
-            setIsMobile(checkMobile() as boolean);
+            setSmallScreen(checkSmallScreen() as boolean);
             getPigeons(session?.user?.email)
             .then((res) =>{
                 setPigeons(res)
@@ -112,24 +113,28 @@ export default function Dashboard(){
     const handleCreatePigeon = (code: number,
          birthyear: number, country :string,
           colour:string, gender: string, mother: number, father: number) =>{
-        createPigeon(code,birthyear,gender,colour,country, mother,father, session?.user?.email)
+        createPigeon(code,birthyear,gender,colour,country, mother,father, session?.user?.email as string)
     };
 
     const handleUpdatePigeon = (id:number,code: number,
         birthyear: number, country :string,
          colour:string, gender: string, mother: number, father: number) =>{
-            updatePigeon(id,code,birthyear,country,colour,gender,mother,father, session?.user?.email);
+            updatePigeon(id,code,birthyear,country,colour,gender,mother,father, session?.user?.email as string);
     };
+    const setNewError = (error: string) => {
+        setFormError(error);
+    }
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
-        const code = !event.target[0].value ? randomNumberInRange() : event.target[0].value
-        const birthyear = Number(event.target[1].value)
+        const code = !event.target[0].value ? setNewError("code") : event.target[0].value
+        const birthyear = Number(!event.target[1].value ? setNewError("year of birth") : event.target[1].value)
         const country = "none"
-        const colour = event.target[2].value 
-        const gender = event.target[3].value == "hen" ? "F" : "M"
-        const mother = Number(event.target[4].value)
-        const father = Number(event.target[5].value)
+        const colour = !event.target[2].value ? setNewError("colour") : event.target[2].value
+        const gender = (!event.target[3].value ? setNewError("gender") : event.target[3].value) == "hen" ? "F" : "M"
+        const mother = Number(!event.target[4].value ? setNewError("mother") : event.target[4].value)
+        const father = Number(event.target[5].value ? setNewError("father") : event.target[5].value)
+
         const id = Number(event.target[6].value)
         switch(action){
             case "create":
@@ -152,9 +157,9 @@ export default function Dashboard(){
         renderPage(pedigree)
     };
 
-    const checkMobile = () => {
+    const checkSmallScreen = () => {
         if(typeof window !== "undefined"){
-            return window.innerWidth < 800;
+            return window.innerWidth < 1200;
         }
     };
 
@@ -172,7 +177,7 @@ export default function Dashboard(){
                 <div className={styles.item_wrapper}>
                     <nav>
                         <h2>Pigeon</h2>
-                        {isMobile ? (
+                        {isSmallScreen ? (
                             <div className={styles.item_controls}>
                                 <PigeonItemControlsMenu setCreateMode={setCreateMode} setEditMode={setEditMode} deleteItem={handleDeletePigeon}/>
                             </div>
@@ -206,7 +211,8 @@ export default function Dashboard(){
                         <label htmlFor="father">Father</label>
                         <input id="father" name="father" type="number" disabled={isInputDisabled} />
                         <input id="id" disabled={true} hidden={true}></input>
-                        <button hidden={isInputDisabled} type="submit">Submit</button>
+                        <span defaultValue={formError}></span>
+                        <button hidden={isInputDisabled} className={styles.submit_button}type="submit">Submit</button>
                     </form>
                 </div>
             </div>
